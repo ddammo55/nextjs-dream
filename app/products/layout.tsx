@@ -1,5 +1,14 @@
 import '@/style'
 import Link from 'next/link'
+
+
+export const metadata = {
+  title: '멋진 제품 사이트',
+  description: '멋진 제품을 확인해 보세요',
+
+}
+
+
 export default function ProductsLayout({
   children,
 }: {

@@ -1,6 +1,9 @@
 
+import { getProduct, getProducts } from '@/service/products';
 import { notFound } from 'next/navigation';
 import React from 'react';
+
+export const revalidate = 3;
 
 type Props = {
     params: {
@@ -8,22 +11,37 @@ type Props = {
     }
 }
 
-export default function page({params}: Props) {
-    if(params.slug === 'nothing') {
-        notFound();
-        return null
+export function generateMetadata({ params } : Props){
+    return {
+        title: `제품의 이름: ${params.slug}`
     }
+}
+
+export default async function ProductPage({params: {slug} } : Props) {
+    const product = await getProduct(slug);
+
+    if(!product) {
+        notFound();
+    }
+    //전달받은 파람즈.슬러그를 가지고 올껀데
+    // if(params.slug === 'nothing') {
+    //     notFound();
+    //     return null
+    // }
+
+    // 서버 파일에 있는 데이터중 해당 제품의 정보를 찾아서 그걸 보여줌
     return (
         <div>
-            <h1>{params.slug} 제품상세페이지</h1>
+            <h1>{product.name} 제품상세페이지</h1>
         </div>
     );
 }
 
-export function generateStaticParams() {
-    const products = ['pants', 'skirts'];
+export async function generateStaticParams() {
+    // 모든 제품의 페이지를 미리 만들어 둘 수 있게 해줄거임(SSG)
+    const products = await getProducts();
     return products.map((product) => ({
-        slug: product,
+        slug: product.id, 
     }));
 }
 
