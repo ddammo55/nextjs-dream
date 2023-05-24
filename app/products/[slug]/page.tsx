@@ -1,6 +1,8 @@
 
+import GoProductsButton from '@/app/components/GoProductsButton';
 import { getProduct, getProducts } from '@/service/products';
-import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import { notFound, redirect } from 'next/navigation';
 import React from 'react';
 
 export const revalidate = 3;
@@ -21,7 +23,8 @@ export default async function ProductPage({params: {slug} } : Props) {
     const product = await getProduct(slug);
 
     if(!product) {
-        notFound();
+        redirect('/products');
+        //notFound();
     }
     //전달받은 파람즈.슬러그를 가지고 올껀데
     // if(params.slug === 'nothing') {
@@ -33,6 +36,13 @@ export default async function ProductPage({params: {slug} } : Props) {
     return (
         <div>
             <h1>{product.name} 제품상세페이지</h1>
+            <Image
+                src={`/images/${product.image}`}
+                width={500}
+                height={500}
+                alt={product.name}
+                />
+            <GoProductsButton/>
         </div>
     );
 }

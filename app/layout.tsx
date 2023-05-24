@@ -1,9 +1,14 @@
 import Link from 'next/link'
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Open_Sans } from 'next/font/google'
+import { Nanum_Gothic } from 'next/font/google'
 
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Open_Sans({ subsets: ['latin'] })
+const Nanum = Nanum_Gothic({ 
+  weight: '700',
+  subsets: ['latin']
+ })
 
 export const metadata = {
   title: 'Create Next App',
@@ -20,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={Nanum.className}>
         <header className='flex justify-between align-items:center p-8 border-b-orange-400'>
             <h1><Link href="/">Home</Link></h1>
             <nav className='flex justify-between items-center gap-10'>
@@ -31,6 +36,8 @@ export default function RootLayout({
             </nav>
         </header>
         {children}
+        <footer className={Nanum.className}>
+          <strong className='text-3xl'>Footer</strong></footer>
       </body>
     </html>
   )

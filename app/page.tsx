@@ -1,6 +1,9 @@
 import Image from 'next/image'
 import os from 'os' //노드 APIs
 import Counter from './components/Counter';
+
+
+
 export default function Home() {
   console.log('안녕');
   console.log(os.hostname());

@@ -5,6 +5,7 @@ export type Product = {
     id: string;
     name: string;
     price: number;
+    image : string;
 };
 
 // 비동기로 데이터 가져오기
